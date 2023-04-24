@@ -1,0 +1,42 @@
+# nastavení pro configuration.yaml , nutno upravit state topic podle skutečně odesíláného tématu
+mqtt:
+  sensor:
+    - name: "Wattmetr UpTime"
+      state_topic: "homeassistant/wattmetr"
+      value_template: >
+       {{ (value) | regex_findall_index("Uptime\[s\]\'\:\s(\d+\.?\d+)") }}
+      unique_id: wattmetr_UpTime
+      unit_of_measurement: "s"
+ 
+    - name: "Wattmetr napětí"
+      state_topic: "homeassistant/wattmetr"
+      value_template: >
+       {{ (value) | regex_findall_index("Voltage\[V\]\'\:\s(\d+\.?\d+)") }}
+      unique_id: wattmetr_voltage
+      unit_of_measurement: "V"
+      device_class: voltage
+ 
+    - name: "Wattmetr proud"
+      state_topic: "homeassistant/wattmetr"
+      value_template: >
+       {{ (value) | regex_findall_index("Current\[A\]\'\:\s(\d+\.?\d+)") }}
+      unique_id: wattmetr_current
+      unit_of_measurement: "A"
+      device_class: current
+ 
+    - name: "Wattmetr výkon"
+      state_topic: "homeassistant/wattmetr"
+      value_template: >
+       {{ (value) | regex_findall_index("Power\[W\]\'\:\s(\d+\.?\d+)") }}
+      unique_id: wattmetr_power
+      unit_of_measurement: "W"
+      device_class: power
+ 
+    - name: "Wattmetr elektroměr"
+      state_topic: "homeassistant/wattmetr"
+      value_template: >
+       {{ (value) | regex_findall_index("EnergyAllAcc\[kWh\]\'\:\s(\d+\.?\d+)") }}
+      unique_id: wattmetr_EnergyAll
+      unit_of_measurement: "kWh"
+      device_class: energy
+      state_class: total_increasing
