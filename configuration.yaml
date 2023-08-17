@@ -40,3 +40,11 @@ mqtt:
       unit_of_measurement: "kWh"
       device_class: energy
       state_class: total_increasing
+    
+    - name: "Wattmetr teplota"
+      state_topic: "homeassistant/wattmetr"
+      value_template: >
+       {{ (value) | regex_findall_index("Temperature\[C\]\'\:\s(\d+\.?\d+)") }}
+      unique_id: wattmetr_temperature
+      unit_of_measurement: "°C"
+      device_class: temperature
